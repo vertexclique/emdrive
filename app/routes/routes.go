@@ -16,35 +16,6 @@ func (_ tApp) Before(
 }
 
 
-type tStatic struct {}
-var Static tStatic
-
-
-func (_ tStatic) Serve(
-		prefix string,
-		filepath string,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "prefix", prefix)
-	revel.Unbind(args, "filepath", filepath)
-	return revel.MainRouter.Reverse("Static.Serve", args).Url
-}
-
-func (_ tStatic) ServeModule(
-		moduleName string,
-		prefix string,
-		filepath string,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "moduleName", moduleName)
-	revel.Unbind(args, "prefix", prefix)
-	revel.Unbind(args, "filepath", filepath)
-	return revel.MainRouter.Reverse("Static.ServeModule", args).Url
-}
-
-
 type tTestRunner struct {}
 var TestRunner tTestRunner
 
@@ -75,24 +46,60 @@ func (_ tTestRunner) List(
 }
 
 
-type tSingle struct {}
-var Single tSingle
+type tStatic struct {}
+var Static tStatic
 
 
-func (_ tSingle) Upload(
+func (_ tStatic) Serve(
+		prefix string,
+		filepath string,
 		) string {
 	args := make(map[string]string)
 	
-	return revel.MainRouter.Reverse("Single.Upload", args).Url
+	revel.Unbind(args, "prefix", prefix)
+	revel.Unbind(args, "filepath", filepath)
+	return revel.MainRouter.Reverse("Static.Serve", args).Url
 }
 
-func (_ tSingle) HandleUpload(
+func (_ tStatic) ServeModule(
+		moduleName string,
+		prefix string,
+		filepath string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "moduleName", moduleName)
+	revel.Unbind(args, "prefix", prefix)
+	revel.Unbind(args, "filepath", filepath)
+	return revel.MainRouter.Reverse("Static.ServeModule", args).Url
+}
+
+
+type tMain struct {}
+var Main tMain
+
+
+func (_ tMain) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Main.Index", args).Url
+}
+
+func (_ tMain) Upload(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Main.Upload", args).Url
+}
+
+func (_ tMain) HandleUpload(
 		avatar []byte,
 		) string {
 	args := make(map[string]string)
 	
 	revel.Unbind(args, "avatar", avatar)
-	return revel.MainRouter.Reverse("Single.HandleUpload", args).Url
+	return revel.MainRouter.Reverse("Main.HandleUpload", args).Url
 }
 
 

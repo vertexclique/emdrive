@@ -19,15 +19,19 @@ const (
 	GB
 )
 
-type Single struct {
+type Main struct {
 	App
 }
 
-func (c *Single) Upload() revel.Result {
+func (c *Main) Index() revel.Result {
 	return c.Render()
 }
 
-func (c *Single) HandleUpload(avatar []byte) revel.Result {
+func (c *Main) Upload() revel.Result {
+	return c.Render()
+}
+
+func (c *Main) HandleUpload(avatar []byte) revel.Result {
 	// Validation rules.
 	c.Validation.Required(avatar)
 	c.Validation.MinSize(avatar, 2*KB).
@@ -50,7 +54,7 @@ func (c *Single) HandleUpload(avatar []byte) revel.Result {
 	if c.Validation.HasErrors() {
 		c.Validation.Keep()
 		c.FlashParams()
-		return c.Redirect(routes.Single.Upload())
+		return c.Redirect(routes.Main.Upload())
 	}
 
 	return c.RenderJson(FileInfo{
