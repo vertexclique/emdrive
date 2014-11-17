@@ -10,7 +10,7 @@ font-family: 'Anivers Regular';
 src:
     local('Anivers Regular'),
     local('Anivers-Regular'),
-    url('fonts/Anivers_Regular-webfont.ttf');
+    url('../fonts/Anivers_Regular-webfont.ttf');
 }
 
 html {
